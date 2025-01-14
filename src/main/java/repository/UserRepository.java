@@ -1,7 +1,7 @@
 package repository;
 import domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 //회원가입
@@ -10,10 +10,12 @@ import java.util.Optional;
 //ID 찾기
 //PW 찾기
 //PW 변경
-
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    //<S extends T> S save(S entity);
     User save(User user);
+    //Optional<T> findById(ID id);
     Optional<User> findByName(String id);
 
 }
