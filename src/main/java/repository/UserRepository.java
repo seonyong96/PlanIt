@@ -13,5 +13,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    User join(User user);
     Optional<User> findByName(String id);
+
 }
