@@ -20,6 +20,7 @@ public class User {
     private Date birth;
     private Date create_time;
     private Date modify_time;
+    private String role;
 
     public Long getUser_id() {
         return user_id;
@@ -83,5 +84,13 @@ public class User {
 
     public void setModify_time(Date modify_time) {
         this.modify_time = modify_time;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

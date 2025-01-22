@@ -1,8 +1,7 @@
 package Service;
 
-import org.junit.jupiter.api.Test;
-
 import planIt.planIt.domain.User;
+import org.junit.jupiter.api.Test;
 import planIt.planIt.repository.UserRepository;
 import planIt.planIt.service.UserService;
 
