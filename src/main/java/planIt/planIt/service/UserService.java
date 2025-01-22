@@ -38,7 +38,7 @@ public class UserService {
     public String encodePassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
-    // 로그인 시 pw 검증
+    // 로그인 시 pw 검증 1234
     public boolean matchesPassword(String rawPassword, String encodePassword) {
         return passwordEncoder.matches(rawPassword, encodePassword);
     }
