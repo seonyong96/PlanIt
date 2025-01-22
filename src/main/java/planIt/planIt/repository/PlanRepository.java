@@ -1,7 +1,8 @@
-package repository;
+package planIt.planIt.repository;
 
-import domain.Plan;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import planIt.planIt.domain.Plan;
 
 public interface PlanRepository extends JpaRepository<Plan, Long> {
 

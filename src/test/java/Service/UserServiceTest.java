@@ -1,9 +1,10 @@
 package Service;
 
-import domain.User;
 import org.junit.jupiter.api.Test;
-import repository.UserRepository;
-import service.UserService;
+
+import planIt.planIt.domain.User;
+import planIt.planIt.repository.UserRepository;
+import planIt.planIt.service.UserService;
 
 public class UserServiceTest {
 

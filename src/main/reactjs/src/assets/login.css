@@ -1,0 +1,58 @@
+.loginPage {
+    /*정가운데 위치*/
+    position: absolute;
+    top: 200px;
+    bottom: 200px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 20px;
+    
+    left: 50%;
+    transform: translate(-50%,0);
+
+    background-color: #f7f7f7;
+
+    overflow: hidden;
+
+    /* 버튼은 오른쪽에 배치
+    display: flex;
+    flex-direction:row ; */
+}
+
+.titleWrap {
+    margin-top: 80px;
+    padding: 10px;
+    font-size: 40px;
+    font-weight:600;
+    background-color: yellow;
+}
+
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    background-color: blue;
+}
+
+.contentWrap {
+    width: 500px;
+}
+
+.idWrap, .pwWrap {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.idInputWrap, .pwInputWrap{
+    height: 100%;
+
+}
+
+.buttonWrap {
+    font-size: 40px;
+    flex: 1;
+    border: none;
+}

@@ -1,10 +1,11 @@
-package service;
+package planIt.planIt.service;
 
-import domain.User;
 import org.aspectj.lang.annotation.Around;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.UserRepository;
+
+import planIt.planIt.domain.User;
+import planIt.planIt.repository.UserRepository;
 
 
 @Service

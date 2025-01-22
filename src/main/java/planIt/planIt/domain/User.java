@@ -1,4 +1,4 @@
-package domain;
+package planIt.planIt.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
