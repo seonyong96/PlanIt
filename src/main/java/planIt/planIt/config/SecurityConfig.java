@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import planIt.planIt.service.CustomUserDetailService;
 
+
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
