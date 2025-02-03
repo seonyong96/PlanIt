@@ -1,0 +1,47 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-img {
+    width: 50px;  /* 원하는 크기로 조정 */
+    height: auto; /* 비율을 맞추어 자동으로 높이 조정 */
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  @media (max-width: 600px) {
+    .header {
+      justify-content: center;
+    }
+  
+    .header-right {
+      display: none;
+    }
+  }
