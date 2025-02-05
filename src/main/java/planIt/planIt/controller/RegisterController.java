@@ -1,10 +1,10 @@
 package planIt.planIt.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import planIt.planIt.domain.User;
 import planIt.planIt.service.UserService;
@@ -13,7 +13,7 @@ import planIt.planIt.service.UserService;
 public class RegisterController {
     private final UserService userService;
 
-    public RegisterController(UserService userService, BCryptPasswordEncoder passwordEncoder) {
+    public RegisterController(UserService userService) {
         this.userService = userService;
     }
 
@@ -23,9 +23,8 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-//    public ResponseEntity<UserDTO> registerUser(User user){
-      public String registerUser(User user){
-        userService.save(user);
-        return "123";
+    public ResponseEntity<User> getUser(@RequestBody UserDTO dto){
+        User user = userService.save(dto);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

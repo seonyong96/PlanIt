@@ -3,10 +3,12 @@
 
 package planIt.planIt;
 
+import org.hibernate.annotations.processing.Exclude;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication (exclude = SecurityAutoConfiguration.class)
 public class PlanItApplication {
 
 	public static void main(String[] args) {
@@ -14,3 +16,4 @@ public class PlanItApplication {
 	}
 
 }
+

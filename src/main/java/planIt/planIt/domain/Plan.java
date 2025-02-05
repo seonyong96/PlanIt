@@ -1,9 +1,6 @@
 package planIt.planIt.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +12,13 @@ public class Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long plan_id;
-    private Long user_id;
+    private Long id;
+    private Long userId;
     private String title;
     private String description;
-    private Date start_time;
-    private Date end_time;
-    private Date create_time;
-    private Date modify_time;
+    private Date startTime;
+    private Date endTime;
+    private Date createTime;
+    private Date modifyTime;
 
 }

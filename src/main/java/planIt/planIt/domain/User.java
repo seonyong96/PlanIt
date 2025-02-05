@@ -1,10 +1,7 @@
 package planIt.planIt.domain;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -14,18 +11,22 @@ import java.util.Date;
 
 @Getter @Setter
 @Entity
+@Builder
+//@Table(name="Member")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
-    private String id;
+
+    private Long id;
+    private String userId;
     private String pw;
     private String name;
-    private String phone_number;
-    private Date birth;
-    private Date create_time;
-    private Date modify_time;
+    private String phoneNumber;
+    private String email;
+    private String birth;
+    private Date createTime;
+    private Date modifyTime;
     private String role;
 
 }

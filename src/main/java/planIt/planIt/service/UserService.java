@@ -1,5 +1,6 @@
 package planIt.planIt.service;
 
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,16 +21,30 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-// 빌더패턴 사용해서 UserDTO 로 받기
-    public void save(User user) {
+
+    /**
+     * 회원가입 서비스
+     */
+    //TODO createTime, modifyTime, role 구현
+    public User save(UserDTO dto) {
+
+        User user = User.builder().userId(dto.getUserId())
+//                .pw(encodePassword(dto.getPw()))
+                .pw(dto.getPw())
+                .name(dto.getName())
+                .phoneNumber(dto.getPhoneNumber())
+                .email(dto.getEmail())
+                .birth(dto.getBirth())
+                .build();
+
         duplicateCheck(user);
-        user.setPw(encodePassword(user.getPw()));
-        userRepository.save(user);
+        return userRepository.save(user);
+
     }
 
     // id 중복체크
     private void duplicateCheck(User user) {
-        userRepository.findByName(user.getId()).ifPresent(m -> {
+        userRepository.findByName(user.getUserId()).ifPresent(m -> {
             throw new IllegalStateException("이미 사용중인 ID 입니다." + user.getId());
         });
     }
@@ -38,7 +53,8 @@ public class UserService {
     public String encodePassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
-    // 로그인 시 pw 검증 1234
+
+    // 로그인 시 pw 검증
     public boolean matchesPassword(String rawPassword, String encodePassword) {
         return passwordEncoder.matches(rawPassword, encodePassword);
     }

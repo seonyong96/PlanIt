@@ -17,7 +17,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     //<S extends T> S save(S entity);
-    User save(User user);
+    // User save(User user);
     //Optional<T> findById(ID id);
     Optional<User> findByName(String id);
 
