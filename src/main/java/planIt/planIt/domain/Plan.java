@@ -1,14 +1,16 @@
 package planIt.planIt.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
-@Getter @Setter
+@Data
 @Entity
-public class Plan {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Plan extends TimeStamp{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,5 @@ public class Plan {
     private String description;
     private Date startTime;
     private Date endTime;
-    private Date createTime;
-    private Date modifyTime;
 
 }

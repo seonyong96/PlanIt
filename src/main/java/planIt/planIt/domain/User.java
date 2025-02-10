@@ -2,22 +2,19 @@ package planIt.planIt.domain;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
-@Getter @Setter
+@Data
 @Entity
 @Builder
-//@Table(name="Member")
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+public class User extends TimeStamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String userId;
     private String pw;
@@ -25,8 +22,6 @@ public class User {
     private String phoneNumber;
     private String email;
     private String birth;
-    private Date createTime;
-    private Date modifyTime;
     private String role;
 
 }

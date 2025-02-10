@@ -25,7 +25,7 @@ public class UserService {
     /**
      * 회원가입 서비스
      */
-    //TODO createTime, modifyTime, role 구현
+    //TODO createTime, modifyTime, role 구현 ( 최초 admin 이 user 를 admin 으로 지정 )
     public User save(UserDTO dto) {
 
         User user = User.builder().userId(dto.getUserId())
@@ -44,8 +44,8 @@ public class UserService {
 
     // id 중복체크
     private void duplicateCheck(User user) {
-        userRepository.findByName(user.getUserId()).ifPresent(m -> {
-            throw new IllegalStateException("이미 사용중인 ID 입니다." + user.getId());
+        userRepository.findByUserId(user.getUserId()).ifPresent(m -> {
+            throw new IllegalStateException(user.getUserId() + "는(은) 이미 사용중인 ID 입니다.");
         });
     }
 
