@@ -67,6 +67,17 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.22</version>
 		</dependency>
+		<!-- Spring Boot Starter Web (기본적인 웹 애플리케이션 기능을 위한 의존성) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Spring Boot Starter Validation (Bean Validation을 위한 의존성) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

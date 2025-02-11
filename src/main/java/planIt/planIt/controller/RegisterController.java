@@ -1,5 +1,6 @@
 package planIt.planIt.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> getUser(@RequestBody UserDTO dto){
+    public ResponseEntity<User> getUser(@Valid @RequestBody UserDTO dto){
         User user = userService.save(dto);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
