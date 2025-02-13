@@ -4,6 +4,8 @@ import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import planIt.planIt.common.enums.ErrorCode;
+import planIt.planIt.common.exeption.CustomException;
 import planIt.planIt.controller.UserDTO;
 import planIt.planIt.domain.User;
 import planIt.planIt.repository.UserRepository;
@@ -45,7 +47,8 @@ public class UserService {
     // id 중복체크
     private void duplicateCheck(User user) {
         userRepository.findByUserId(user.getUserId()).ifPresent(m -> {
-            throw new IllegalStateException(user.getUserId() + "는(은) 이미 사용중인 ID 입니다.");
+//            throw new IllegalStateException(user.getUserId() + "는(은) 이미 사용중인 ID 입니다.");
+            throw new CustomException(ErrorCode.DUPLICATE_ID);
         });
     }
 
