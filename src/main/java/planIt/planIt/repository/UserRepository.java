@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import planIt.planIt.domain.User;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 //회원가입
@@ -16,9 +17,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    //<S extends T> S save(S entity);
-    // User save(User user);
-    //Optional<T> findById(ID id);
     Optional<User> findByUserId(String id);
+    User findByNameAndBirthAndEmail(String name, String birth, String email);
 
 }

@@ -28,7 +28,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                    .requestMatchers("/", "/home", "/login", "/register", "/test").permitAll() // 누구나 접근 가능
+                    .requestMatchers("/**").permitAll() // 누구나 접근 가능
                     .requestMatchers("/admin/**").hasRole("ADMIN") // 관리자만 접근 가능
                     .anyRequest().authenticated() // 나머지 요청은 인증 필요
                 .and()
