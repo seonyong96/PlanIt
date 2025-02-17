@@ -84,7 +84,7 @@ public class UserService {
 
     }
 
-    public String userPwSearch(UserPwSearchDTO dto){
+    public User userPwSearch(UserPwSearchDTO dto){
 
         User user = User.builder()
                 .name(dto.getName())
@@ -93,15 +93,9 @@ public class UserService {
                 .birth(dto.getBirth())
                 .build();
 
-        return "";
+
+
+        return user;
     }
-
-    public String userPwSearch(User user){
-
-
-
-        return "";
-    }
-
 
 }

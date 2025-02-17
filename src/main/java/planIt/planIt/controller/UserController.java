@@ -7,19 +7,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import planIt.planIt.controller.dto.EmailDTO;
 import planIt.planIt.controller.dto.UserDTO;
 import planIt.planIt.controller.dto.UserIdSearchDTO;
+import planIt.planIt.domain.Email;
 import planIt.planIt.domain.User;
+import planIt.planIt.service.EmailService;
 import planIt.planIt.service.UserService;
+
+import java.util.HashMap;
 
 // 큰 범위 단위로 컨트롤러 짜기 ( UserController / PlanController / NotiController --알림 )
 
 @RestController
 public class UserController {
     private final UserService userService;
+    private final EmailService emailService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, EmailService emailService) {
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/register")
@@ -27,16 +34,36 @@ public class UserController {
         return "register";
     }
 
-
     /** 회원가입
-     * 
+     *
      * @param dto
-     * @return
+     * @return ResponseEntity<>
      */
     @PostMapping("/register")
     public ResponseEntity<User> getUser(@Valid @RequestBody UserDTO dto){
         User user = userService.save(dto);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    /*** 이메일 인증 요청
+     *
+     * @param dto
+     * @return ResponseEntity<>
+     */
+    @PostMapping("/mailSend")
+    public ResponseEntity<Email> mailSend(@Valid @RequestBody EmailDTO dto){
+        Email email = emailService.sendMail(dto);
+        return new ResponseEntity<>(email, HttpStatus.OK);
+    }
+
+    /** 이메일 인증번호 검증
+     *
+     * @param dto
+     * @return boolean
+     */
+    @PostMapping("/mailNumberCheck")
+    public boolean mailNumberCheck(@Valid @RequestBody EmailDTO dto){
+        return emailService.mailNumberCheck(dto);
     }
 
     /** ID찾기
