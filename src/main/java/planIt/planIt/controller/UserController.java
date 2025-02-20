@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import planIt.planIt.controller.dto.EmailDTO;
 import planIt.planIt.controller.dto.UserDTO;
 import planIt.planIt.controller.dto.UserIdSearchDTO;
+import planIt.planIt.controller.dto.UserPwSearchDTO;
 import planIt.planIt.domain.Email;
 import planIt.planIt.domain.User;
 import planIt.planIt.service.EmailService;
@@ -76,6 +77,32 @@ public class UserController {
 
         User user = userService.userIdSearch(dto);
         return new ResponseEntity<>(user, HttpStatus.OK);
+
     }
 
+    /** PW 찾기
+     * PW찾기 시 Vaild 검증
+     * @param dto
+     * @return ResponseEntity
+     */
+    @PostMapping("/userPwSearch")
+    public ResponseEntity<User> userPwSerach(@Valid @RequestBody UserPwSearchDTO dto) {
+
+        User user = userService.userPwSearch(dto);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+
+    }
+
+    /**
+     * PW찾기 시 새 비밀번호 DB저장
+     * @param dto
+     * @return ResponseEntity
+     */
+    @PostMapping("/setNewPw")
+    public ResponseEntity<User> setNewPw(@Valid @RequestBody UserPwSearchDTO dto) {
+
+        User user = userService.setNewPw(dto);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+
+    }
 }
