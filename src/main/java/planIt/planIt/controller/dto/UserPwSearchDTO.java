@@ -18,8 +18,6 @@ public class UserPwSearchDTO {
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message="ID는 영문+숫자 조합으로 입력해주세요.")
     private String userId;
 
-    private String pw;
-
     @NotNull(message="이름은 필수항목 입니다.")
     private String name;
 
@@ -32,4 +30,7 @@ public class UserPwSearchDTO {
     @Pattern(regexp = "^[0-9]+$", message="생년월일은 yymmdd 으로 작성바랍니다. ex)960219")
     private String birth;
 
+    private String newPw;
+
+    private String NewPwCheck;
 }

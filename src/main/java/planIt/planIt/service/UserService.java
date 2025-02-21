@@ -64,12 +64,10 @@ public class UserService {
     }
 
     /**
-     * 아이디 / 비밀번호 찾기
-     *
+     * 아이디 찾기
      * 이메일 인증 -> 이름 && 생년월일 && 이메일 로 ID찾기
-     * 이메일 인증 구현
-     *
-     * 비밀번호 인증
+     * @param dto
+     * @return User
      */
 
     public User userIdSearch(UserIdSearchDTO dto){
@@ -80,12 +78,23 @@ public class UserService {
                 .birth(dto.getBirth())
                 .build();
 
-        return userRepository.findByNameAndBirthAndEmail(user.getName(), user.getBirth(), user.getEmail());
+        User foundUser = userRepository.findByNameAndBirthAndEmail(user.getName(), user.getBirth(), user.getEmail());
+
+        if (foundUser == null) {
+            throw new CustomException(ErrorCode.NOTFOUND_ID);
+        }
+
+        return foundUser;
 
     }
 
-    public String userPwSearch(UserPwSearchDTO dto){
 
+    /** PW찾기
+     *  처음 PW찾기 시 입력한 정보 validation 후 해당 User 리턴
+     * @param dto
+     * @return User
+     */
+    public User userPwSearch(UserPwSearchDTO dto){
         User user = User.builder()
                 .name(dto.getName())
                 .userId(dto.getUserId())
@@ -93,15 +102,37 @@ public class UserService {
                 .birth(dto.getBirth())
                 .build();
 
-        return "";
+        User foundPw = userRepository.findByNameAndBirthAndEmail(user.getName(), user.getBirth(), user.getEmail());
+
+        if (foundPw == null){
+            throw new CustomException(ErrorCode.NOTFOUND_PW);
+        }
+
+        return foundPw;
     }
 
-    public String userPwSearch(User user){
+    /** 새 비밀번호 저장
+     * 입력받은 새 비밀번호 DB저장
+     * @param dto
+     * @return User
+     */
+    public User setNewPw(UserPwSearchDTO dto){
 
+        User user = userPwSearch(dto);
+        user.setPw(varifyPw(dto));
 
+        userRepository.save(user);
 
-        return "";
+        return user;
     }
 
+    public String varifyPw(UserPwSearchDTO dto) {
+
+        if(!dto.getNewPw().equals(dto.getNewPwCheck())){
+            throw new CustomException(ErrorCode.MISSMATCH_PW);
+        }
+
+        return dto.getNewPw();
+    }
 
 }
