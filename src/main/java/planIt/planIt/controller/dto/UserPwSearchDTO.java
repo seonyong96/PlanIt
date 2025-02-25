@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserPwSearchDTO {
 
     @NotNull(message="ID는 필수항목 입니다.")
@@ -32,5 +34,5 @@ public class UserPwSearchDTO {
 
     private String newPw;
 
-    private String NewPwCheck;
+    private String newPwCheck;
 }
