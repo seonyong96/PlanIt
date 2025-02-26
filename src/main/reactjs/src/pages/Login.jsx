@@ -1,20 +1,104 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../assets/login.css';
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    
-    // useNavigate 훅을 호출하여 navigate 함수 사용
+
+    const [userId, setUserId] = useState('');
+    const [password, setPassword] = useState('');
+    const [idError, setIdError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+
+    // useNavigate 훅을 호출하여 페이지 이동시킬 navigate 함수 사용
     const navigate = useNavigate();
 
-    const onSubmit = (data) => {
-        alert('일단완송! 추후 api연동할 부분');
-        navigate('/main');
+    /** 
+     * 동적 Handler Function
+     *  */
+    //입력값에 공백이 들어오지 못하게 막음
+    function handleInputChange(e, setterFunction) {
+        e.target.value = e.target.value.replace(/\s+/g, '');
+        setterFunction(e.target.value);
     }
 
+    function handleIdChange(e) {
+        handleInputChange(e, setUserId);
+    }
 
+    function handlePasswordChange(e) {
+        handleInputChange(e, setPassword);
+    }
+
+    /**
+     * validation 체크
+     */
+    function handleValidation(e) {
+        let { name, value } = e.target;
+
+        console.log(name, value)
+
+        switch (name) {
+            case 'userId':
+                if (!value) {
+                    setIdError('아이디를 입력해주세요.');
+                    break;
+                } else {
+                    setIdError('');
+                    break;
+                }
+            case 'password':
+                if (!value) {
+                    setPasswordError('비밀번호를 입력해주세요.');
+                    break;
+                } else {
+                    setPasswordError('');
+                    break;
+                }
+        }
+    }
+    /** 
+     * API Fuction
+     *  */
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        const reqData = {
+            "userid": userId,
+            "pw": password
+        }
+
+        if (Object.values(reqData).every(value => value)) {
+            console.log('loginData : ' + reqData.userid + reqData.pw);
+            /**
+             * 로그인 로직 만들어지면 사용
+             */
+            // axios.post(
+            //     '/api/login', loginData,
+            //     {
+            //         headers: {
+            //             'Content-type': 'application/json',
+            //             'Accept': 'application/json'
+            //         }
+            //     }).then(res => {
+            //         alert('이건 로그인이야');
+            //         console.log(res.data);
+            //         navigate('/main');
+            //     }).catch(err => {
+            //         alert(err.response.data.message);
+            //     })
+
+            /**로그인 구축 전 임시 이동페이지 */
+            navigate('/main');
+        } else {
+            alert("아이디 / 비밀번호를 입력해주세요.");
+        }
+    }
+
+    /** 
+     * Popup페이지 연동 Fuction
+     *  */
     function handleFindIdPopup(event) {
         event.preventDefault(); // a태그일 경우 경로를 같이 써주기 때문에 기본 브라우저에서는 동작안하도록 막는 방법(팝업페이지를 위한 기능)
 
@@ -43,14 +127,14 @@ const Login = () => {
         window.open('/findPw', '_blank', `width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=no`);
     }
 
-    function handleRegister(){
+    function handleRegister() {
         navigate('/register')
     }
 
     return (
         <div className='loginPage'>
             <div className='titleWrap'>PLANIT</div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit}>
                 {/*아이디 입력 필드*/}
                 <div className='contentWrap'>
                     <div className='idWrap'>
@@ -58,10 +142,13 @@ const Login = () => {
                             placeholder='아이디'
                             className='idInputWrap'
                             id='id'
+                            name='userId'
+                            value={userId}
+                            onChange={handleIdChange}
+                            onBlur={handleValidation}
                             type='text'
-                            {...register('id', { required: '아이디를 입력해주세요.' })}
                         />
-                        {errors.id && <p>{errors.id.message}</p>}
+                        {idError && <div className='idError'>{idError}</div>}
                     </div>
 
                     {/*비밀번호 입력 필드*/}
@@ -69,12 +156,15 @@ const Login = () => {
                         <input
                             placeholder='비밀번호'
                             className='pwInputWrap'
-                            id='pw'
-                            autocomplete="off"
+                            id='password'
+                            name='password'
+                            value={password}
+                            autoComplete="off"
+                            onChange={handlePasswordChange}
+                            onBlur={handleValidation}
                             type='password'
-                            {...register('pw', { required: '비밀번호를 입력해주세요.' })}
                         />
-                        {errors.pw && <p>{errors.pw.message}</p>}
+                        {passwordError && <div className='passwordError'>{passwordError}</div>}
                     </div>
                 </div>
 
