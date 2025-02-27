@@ -1,6 +1,5 @@
-package Service;
+package planIt.planIt.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -12,7 +11,7 @@ import planIt.planIt.controller.dto.UserPwSearchDTO;
 import planIt.planIt.domain.User;
 import org.junit.jupiter.api.Test;
 import planIt.planIt.repository.UserRepository;
-import planIt.planIt.service.UserService;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,7 +33,7 @@ public class UserServiceTest {
                 .userId("testId")
                 .pw("testPw")
                 .name("홍길동")
-                .phoneNumber("0101234567")
+                .phoneNumber("01012345678")
                 .email("testEmail@email.com")
                 .birth("250225")
                 .build();
@@ -68,7 +67,7 @@ public class UserServiceTest {
                 .userId("testId")
                 .pw("testPw")
                 .name("홍길동")
-                .phoneNumber("0101234567")
+                .phoneNumber("01012345678")
                 .email("testEmail@email.com")
                 .birth("250225")
                 .build();
@@ -122,7 +121,7 @@ public class UserServiceTest {
                 .userId("testId")
                 .pw("testPw")
                 .name("홍길동")
-                .phoneNumber("0101234567")
+                .phoneNumber("01012345678")
                 .email("testEmail@email.com")
                 .birth("250225")
                 .build();
@@ -156,7 +155,7 @@ public class UserServiceTest {
                 .userId("testId")
                 .pw("testPw")
                 .name("홍길동")
-                .phoneNumber("0101234567")
+                .phoneNumber("01012345678")
                 .email("testEmail@email.com")
                 .birth("250225")
                 .build();
@@ -218,7 +217,7 @@ public class UserServiceTest {
                 .userId("testId")
                 .pw("testPw")
                 .name("홍길동")
-                .phoneNumber("0101234567")
+                .phoneNumber("01012345678")
                 .email("testEmail@email.com")
                 .birth("250225")
                 .build();
