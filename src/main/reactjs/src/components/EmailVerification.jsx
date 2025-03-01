@@ -115,7 +115,7 @@ const EmailVerification = ({setEmail}) => {
                     name='emailVerify'
                     value={emailVerify}
                     type='text'
-                    onChange={(e) => setEmailVerify(e.target.value)}
+                    onChange={(e) => setEmailVerify(e.target.value.replace((/\s+/g, '')))}
                 />
                 {emailVerifyError && <div className="error">{emailVerifyError}</div>}
                 <button type='button' className='emailVerifyBtn' onClick={handleVerifyEmail}>확인</button>

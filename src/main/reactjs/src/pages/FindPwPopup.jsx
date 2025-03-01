@@ -3,10 +3,12 @@ import '../assets/button.css'
 import { initialState, reducer } from '../reducers/RegisterReducers'
 import EmailVerification from '../components/EmailVerification';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const FindPwPopup = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
+    const navigate = useNavigate();
 
     function handleChange(e) {
         let { name, value } = e.target;
@@ -54,7 +56,7 @@ const FindPwPopup = () => {
                 console.log(res);
 
                 // navigate로 res 데이터를 state에 담아서 전달 (result는 key)
-                // navitgate('/findidresult', { state: { result: res.data } });
+                navigate('/resetpw', { state: { result: res.data } });
 
             }).catch(err => {
                 alert(err.response.data.message);

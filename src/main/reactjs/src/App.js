@@ -6,6 +6,7 @@ import FindPwPopup from './pages/FindPwPopup';
 import RegisterPage from './pages/Register';
 import Main from './pages/Main'
 import FindIdResult from "./pages/FindIdResult";
+import ResetPw from "./pages/ResetPw";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/findid" element={<FindIdPopup/>}/> 
                     <Route path="/findidresult" element={<FindIdResult/>}/> 
                     <Route path="/findpw" element={<FindPwPopup/>}/> 
+                    <Route path="/resetpw" element={<ResetPw/>}/> 
                     <Route path="/register" element={<RegisterPage/>}/> 
                     <Route path="/main" element={<Main/>}/> 
                 </Routes>
