@@ -12,8 +12,12 @@ const EmailVerification = ({setEmail}) => {
     const [emailVerifyError, setEmailVerifyError] = useState('');
 
     function handleEmailChange(e){
-        setLocalEmail(e.target.value);
-        setEmail(email); //부모 컴포넌트로 값 올리기
+        let { value } = e.target;
+
+        value = value.replace(/\s+/g, '');
+
+        setLocalEmail(value);
+        setEmail(value); //부모 컴포넌트로 값 올리기
     }
 
     /**
@@ -97,7 +101,7 @@ const EmailVerification = ({setEmail}) => {
                     id='email'
                     name='email'
                     value={email}
-                    autocomplete="off"
+                    autoComplete="off"
                     type='text'
                     onChange={handleEmailChange}
                 />

@@ -5,6 +5,7 @@ import FindIdPopup from './pages/FindIdPopup';
 import FindPwPopup from './pages/FindPwPopup';
 import RegisterPage from './pages/Register';
 import Main from './pages/Main'
+import FindIdResult from "./pages/FindIdResult";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<LoginPage/>}/>
                     <Route path="/findid" element={<FindIdPopup/>}/> 
+                    <Route path="/findidresult" element={<FindIdResult/>}/> 
                     <Route path="/findpw" element={<FindPwPopup/>}/> 
                     <Route path="/register" element={<RegisterPage/>}/> 
                     <Route path="/main" element={<Main/>}/> 

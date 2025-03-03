@@ -1,0 +1,13 @@
+.btnWrap {
+    display: flex;
+    justify-content: space-between;
+    gap:10px;
+}
+
+.submitBtn ,.cancelBtn {
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+    border: 2px solid black;;
+    border-radius: 10px;
+}
