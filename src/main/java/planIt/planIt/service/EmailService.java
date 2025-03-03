@@ -23,14 +23,15 @@ public class EmailService {
     private JavaMailSender mailSender;
 
     private final String senderMail = "csy21977@gmail.com"; // 발신 이메일 주소
-    private int number;
+//    private int number;
 
     /** 100000 ~ 999999 사이의 난수 생성
      *
      */
-    public void createNumber() {
-        number = (int)(Math.random() * 900000) + 100000;
+    public int createNumber() {
+        return (int)(Math.random() * 900000) + 100000;
     }
+
 
     /** 이메일 생성
      *
@@ -38,7 +39,7 @@ public class EmailService {
      * @param emailNumber 이메일 발소된 인증번호
      * @return
      */
-    public MimeMessage CreateMail(String mail, int emailNumber) {
+    public MimeMessage createMail(String mail, int emailNumber) {
 
         MimeMessage message = mailSender.createMimeMessage();
 
@@ -64,15 +65,16 @@ public class EmailService {
      * @return Email
      */
     public Email sendMail(EmailDTO dto){
-        createNumber();
+
+        int number = createNumber();
+
         Email email = Email.builder()
                 .email(dto.getEmail())
                 .number(number)
                 .build();
 
-        MimeMessage message = CreateMail(email.getEmail(), number);
+        MimeMessage message = createMail(email.getEmail(), number);
         mailSender.send(message);
-
         return emailRepository.save(email);
     }
 

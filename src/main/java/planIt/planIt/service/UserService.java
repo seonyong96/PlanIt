@@ -95,6 +95,41 @@ public class UserService {
      * @return User
      */
     public User userPwSearch(UserPwSearchDTO dto){
+//        User user = User.builder()
+//                .name(dto.getName())
+//                .userId(dto.getUserId())
+//                .email(dto.getEmail())
+//                .birth(dto.getBirth())
+//                .build();
+//
+//        User foundPw = userRepository.findByNameAndBirthAndEmail(user.getName(), user.getBirth(), user.getEmail());
+//
+//        if (foundPw == null){
+//            throw new CustomException(ErrorCode.NOTFOUND_PW);
+//        }
+//
+//        return foundPw;
+
+        return findUserByPw(dto);
+
+    }
+
+    /** 새 비밀번호 저장
+     * 입력받은 새 비밀번호 DB저장
+     * @param dto
+     * @return User
+     */
+    public User setNewPw(UserPwSearchDTO dto){
+
+        User user = findUserByPw(dto);
+        user.setPw(varifyPw(dto));
+
+        userRepository.save(user);
+
+        return user;
+    }
+
+    public User findUserByPw(UserPwSearchDTO dto) {
         User user = User.builder()
                 .name(dto.getName())
                 .userId(dto.getUserId())
@@ -109,21 +144,6 @@ public class UserService {
         }
 
         return foundPw;
-    }
-
-    /** 새 비밀번호 저장
-     * 입력받은 새 비밀번호 DB저장
-     * @param dto
-     * @return User
-     */
-    public User setNewPw(UserPwSearchDTO dto){
-
-        User user = userPwSearch(dto);
-        user.setPw(varifyPw(dto));
-
-        userRepository.save(user);
-
-        return user;
     }
 
     public String varifyPw(UserPwSearchDTO dto) {

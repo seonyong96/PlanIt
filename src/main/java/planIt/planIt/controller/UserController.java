@@ -2,6 +2,7 @@ package planIt.planIt.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 
 @RestController
 public class UserController {
+
     private final UserService userService;
     private final EmailService emailService;
 
@@ -31,17 +33,18 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String registerPage(){
+    public String registerPage() {
         return "register";
     }
 
-    /** 회원가입
+    /**
+     * 회원가입
      *
      * @param dto
      * @return ResponseEntity<>
      */
     @PostMapping("/register")
-    public ResponseEntity<User> getUser(@Valid @RequestBody UserDTO dto){
+    public ResponseEntity<User> registerUser(@Valid @RequestBody UserDTO dto) {
         User user = userService.save(dto);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -52,22 +55,24 @@ public class UserController {
      * @return ResponseEntity<>
      */
     @PostMapping("/mailSend")
-    public ResponseEntity<Email> mailSend(@Valid @RequestBody EmailDTO dto){
+    public ResponseEntity<Email> mailSend(@Valid @RequestBody EmailDTO dto) {
         Email email = emailService.sendMail(dto);
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
 
-    /** 이메일 인증번호 검증
+    /**
+     * 이메일 인증번호 검증
      *
      * @param dto
      * @return boolean
      */
     @PostMapping("/mailNumberCheck")
-    public boolean mailNumberCheck(@Valid @RequestBody EmailDTO dto){
+    public boolean mailNumberCheck(@Valid @RequestBody EmailDTO dto) {
         return emailService.mailNumberCheck(dto);
     }
 
-    /** ID찾기
+    /**
+     * ID찾기
      *
      * @param dto
      * @return ResponseEntity<>
@@ -80,8 +85,10 @@ public class UserController {
 
     }
 
-    /** PW 찾기
+    /**
+     * PW 찾기
      * PW찾기 시 Vaild 검증
+     *
      * @param dto
      * @return ResponseEntity
      */
@@ -95,6 +102,7 @@ public class UserController {
 
     /**
      * PW찾기 시 새 비밀번호 DB저장
+     *
      * @param dto
      * @return ResponseEntity
      */
@@ -102,7 +110,7 @@ public class UserController {
     public ResponseEntity<User> setNewPw(@Valid @RequestBody UserPwSearchDTO dto) {
 
         User user = userService.setNewPw(dto);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
 
     }
 }

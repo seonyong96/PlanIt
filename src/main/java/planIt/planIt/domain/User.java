@@ -20,8 +20,6 @@ public class User extends TimeStamp {
 
     private String userId;
 
-    private String verificationToken;
-
     private String pw;
 
     private String name;
