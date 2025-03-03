@@ -22,7 +22,6 @@ import java.util.HashMap;
 // 큰 범위 단위로 컨트롤러 짜기 ( UserController / PlanController / NotiController --알림 )
 
 @RestController
-
 public class UserController {
 
     private final UserService userService;

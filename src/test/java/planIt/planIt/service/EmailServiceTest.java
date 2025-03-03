@@ -32,6 +32,14 @@ class EmailServiceTest {
     @InjectMocks
     private EmailService emailService;
 
+//    @BeforeEach()
+//    public void SetUp() {
+//        MimeMessage mimeMessage = new MimeMessage((Session) null);
+//        mailSender = mock(JavaMailSender.class);
+//        when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
+//        emailService = new EmailService(mailSender);
+//    }
+
     @Test
     void sendMailTest() {
 
