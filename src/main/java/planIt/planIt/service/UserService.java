@@ -3,8 +3,10 @@ package planIt.planIt.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import planIt.planIt.common.auth.JwtTokenProvider;
 import planIt.planIt.common.enums.ErrorCode;
 import planIt.planIt.common.exeption.CustomException;
+import planIt.planIt.controller.dto.LoginDTO;
 import planIt.planIt.controller.dto.UserDTO;
 import planIt.planIt.controller.dto.UserIdSearchDTO;
 import planIt.planIt.controller.dto.UserPwSearchDTO;
@@ -18,11 +20,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     /**
@@ -155,4 +159,19 @@ public class UserService {
         return dto.getNewPw();
     }
 
+    public String login(LoginDTO loginDTO) {
+        User user = User.builder()
+                .userId(loginDTO.getUserId())
+                .pw(loginDTO.getPw())
+                .build();
+
+        User findUser = userRepository.findByUserIdAndPw(user.getUserId(), user.getPw());
+
+        if(findUser == null) {
+            throw new CustomException(ErrorCode.MISSMATCH_LOGIN);
+        }
+
+        return jwtTokenProvider.generateToken(findUser.getUserId());
+
+    }
 }

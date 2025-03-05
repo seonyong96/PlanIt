@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import planIt.planIt.controller.dto.EmailDTO;
-import planIt.planIt.controller.dto.UserDTO;
-import planIt.planIt.controller.dto.UserIdSearchDTO;
-import planIt.planIt.controller.dto.UserPwSearchDTO;
+import planIt.planIt.common.auth.JwtTokenProvider;
+import planIt.planIt.controller.dto.*;
 import planIt.planIt.domain.Email;
 import planIt.planIt.domain.User;
 import planIt.planIt.service.EmailService;
@@ -26,10 +24,12 @@ public class UserController {
 
     private final UserService userService;
     private final EmailService emailService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public UserController(UserService userService, EmailService emailService) {
+    public UserController(UserService userService, EmailService emailService, JwtTokenProvider jwtTokenProvider) {
         this.userService = userService;
         this.emailService = emailService;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @GetMapping("/register")
@@ -113,4 +113,5 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
 
     }
+
 }

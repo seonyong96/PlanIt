@@ -2,18 +2,24 @@ package planIt.planIt.common.auth;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
 
 import java.util.Date;
 
 @Component
-public class JwtUtil {
+public class JwtTokenProvider {
 
-    private final String SECRET_KEY = "my-secret-key";
+//    private final String SECRET_KEY = "my-secret-key";
+
+    @Value("${jwt.secret.key}")
+    private String SECRET_KEY;
 
     /**
      * JWT 토큰 생성
+     *
      * @param userId
      * @return
      */
@@ -28,6 +34,7 @@ public class JwtUtil {
 
     /**
      * 토큰에서 userId 추출
+     *
      * @param token
      * @return
      */
