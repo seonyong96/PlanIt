@@ -5,13 +5,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import planIt.planIt.common.auth.JwtTokenProvider;
 import planIt.planIt.common.enums.ErrorCode;
+import planIt.planIt.common.enums.UserRole;
 import planIt.planIt.common.exeption.CustomException;
-import planIt.planIt.controller.dto.LoginDTO;
-import planIt.planIt.controller.dto.UserDTO;
-import planIt.planIt.controller.dto.UserIdSearchDTO;
-import planIt.planIt.controller.dto.UserPwSearchDTO;
+import planIt.planIt.controller.dto.*;
 import planIt.planIt.domain.User;
 import planIt.planIt.repository.UserRepository;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 // jwt
 
@@ -45,6 +46,7 @@ public class UserService {
                 .build();
 
         duplicateCheck(user);
+        user.setRole(UserRole.ROLE_USER.getRoleName());
         return userRepository.save(user);
 
     }
@@ -52,9 +54,10 @@ public class UserService {
     // id 중복체크
     private void duplicateCheck(User user) {
         userRepository.findByUserId(user.getUserId()).ifPresent(m -> {
-//            throw new IllegalStateException(user.getUserId() + "는(은) 이미 사용중인 ID 입니다.");
             throw new CustomException(ErrorCode.DUPLICATE_ID);
         });
+
+
     }
 
     // pw BCrypt 인코딩
@@ -159,6 +162,11 @@ public class UserService {
         return dto.getNewPw();
     }
 
+    /** 로그인
+     *
+     * @param loginDTO
+     * @return String(토큰값)
+     */
     public String login(LoginDTO loginDTO) {
         User user = User.builder()
                 .userId(loginDTO.getUserId())
@@ -172,6 +180,41 @@ public class UserService {
         }
 
         return jwtTokenProvider.generateToken(findUser.getUserId());
+
+    }
+
+    /** Role 변경
+     *
+     * @param dto
+     * @return User
+     */
+    public User roleChange(RoleChangeDTO dto) {
+
+        User user = User.builder()
+                .userId(dto.getUserId())
+                .build();
+
+//        User foundUser = userRepository.findByUserId(dto.getUserId());
+
+        Optional<User> optionalUser = userRepository.findByUserId(dto.getUserId());
+
+        User foundUser = optionalUser.orElseThrow( () ->
+                new CustomException(ErrorCode.NOTFOUND_ID)
+                );
+
+        if (!dto.getNewRole().equals("ROLE_USER") && !dto.getNewRole().equals("ROLE_ADMIN")) {
+            throw new IllegalArgumentException("유효하지 않은 역할입니다.");
+        }
+
+        if (dto.getNewRole().equals(foundUser.getRole())) {
+            throw new CustomException(ErrorCode.DUPLICATE_ROLE);
+        }
+
+
+        foundUser.setRole(dto.getNewRole());
+        userRepository.save(foundUser);
+
+        return foundUser;
 
     }
 }

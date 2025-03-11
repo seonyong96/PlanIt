@@ -32,11 +32,6 @@ public class UserController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @GetMapping("/register")
-    public String registerPage() {
-        return "register";
-    }
-
     /**
      * 회원가입
      *
@@ -112,6 +107,13 @@ public class UserController {
         User user = userService.setNewPw(dto);
         return new ResponseEntity<>(user, HttpStatus.OK);
 
+    }
+
+    @PostMapping("/roleChange")
+    public ResponseEntity<User> roleChange(@Valid @RequestBody RoleChangeDTO dto) {
+
+        User user = userService.roleChange(dto);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 }

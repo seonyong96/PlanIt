@@ -27,16 +27,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Authoriztion 헤더에서 JWT 추출
-        String authHeader = request.getHeader("Authoriztion");
+        // Authorization 헤더에서 JWT 추출
+        String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+
+//            System.out.println("********************Authorization 헤더가 없거나 형식이 잘못됨**************************"); 로그확인용
+
             filterChain.doFilter(request, response);
             return;
         }
 
         String jwt = authHeader.substring(7); // "Bearer " 이후 추출
         String userId = jwtTokenProvider.extractUserId(jwt);
+
+//        System.out.println("*********************userid : ************************" + userId); 로그확인용
 
         if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
@@ -48,8 +53,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
+
+            boolean isValid = jwtTokenProvider.vaildateToken(jwt, userDetails);
+//            System.out.println("**************************JWT is valid : *************************" + isValid); 로그확인용
         }
 
+//        System.out.println("*******************fliter chain 정상작동********************"); 로그확인용
         filterChain.doFilter(request, response);
     }
 

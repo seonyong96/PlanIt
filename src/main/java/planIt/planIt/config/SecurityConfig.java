@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,8 +31,11 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())   // csrf 비활성화
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 사용 안함
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .logout(logout -> logout.disable()) // 기본 로그아웃 비활성화
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(/*"/signIn", "/register"*/"/**").permitAll()   // 인증없이 허용되는 범위
+                        .requestMatchers("/login", "/register", "/logout", "/mailSend", "/mailNumberCheck", /*"/userIdSearch",*/ "/userPwSearch", "/setNewPw").permitAll()   // 인증없이 허용되는 범위
                         .anyRequest().authenticated()   // 나머지는 인증 필요
                 )
                 .authenticationProvider(authenticationProvider())
