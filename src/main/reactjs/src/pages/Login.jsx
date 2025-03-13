@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../assets/login.css';
+import loginStyle from '../assets/login.module.css';
+import Alert from '../components/Alert';
+import useAlert from '../hooks/useAlert';
 
 const Login = () => {
 
@@ -10,9 +12,11 @@ const Login = () => {
     const [idError, setIdError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-
     // useNavigate 훅을 호출하여 페이지 이동시킬 navigate 함수 사용
     const navigate = useNavigate();
+
+    // useAlert 커스텀 훅 사용해서 custom alert
+    const { showAlert, showAlertMessage, alertMessage, closeAlert } = useAlert();
 
     /** 
      * 동적 Handler Function
@@ -24,10 +28,12 @@ const Login = () => {
     }
 
     function handleIdChange(e) {
+        setIdError('');
         handleInputChange(e, setUserId);
     }
 
     function handlePasswordChange(e) {
+        setPasswordError('');
         handleInputChange(e, setPassword);
     }
 
@@ -92,7 +98,7 @@ const Login = () => {
             /**로그인 구축 전 임시 이동페이지 */
             navigate('/main');
         } else {
-            alert("아이디 / 비밀번호를 입력해주세요.");
+            showAlertMessage("아이디/비밀번호를 입력해주세요.");
         }
     }
 
@@ -131,16 +137,17 @@ const Login = () => {
         navigate('/register')
     }
 
+
     return (
-        <div className='loginPage'>
-            <div className='titleWrap'>PLANIT</div>
-            <form onSubmit={handleSubmit}>
-                {/*아이디 입력 필드*/}
-                <div className='contentWrap'>
-                    <div className='idWrap'>
+        <div className={loginStyle.background_page}>
+            <div className={loginStyle.container}>
+                <div className={loginStyle.grid_item}>PLANIT</div>
+                <form className={loginStyle.grid_item} onSubmit={handleSubmit}>
+                    {/*아이디 입력 필드*/}
+                    <div className='contentWrap'>
                         <input
                             placeholder='아이디'
-                            className='idInputWrap'
+                            className={loginStyle.idInputWrap}
                             id='id'
                             name='userId'
                             value={userId}
@@ -148,14 +155,12 @@ const Login = () => {
                             onBlur={handleValidation}
                             type='text'
                         />
-                        {idError && <div className='idError'>{idError}</div>}
-                    </div>
+                        {idError && <div className={loginStyle.idError}>{idError}</div>}
 
-                    {/*비밀번호 입력 필드*/}
-                    <div className='pwWrap'>
+                        {/*비밀번호 입력 필드*/}
                         <input
                             placeholder='비밀번호'
-                            className='pwInputWrap'
+                            className={loginStyle.pwInputWrap}
                             id='password'
                             name='password'
                             value={password}
@@ -164,28 +169,26 @@ const Login = () => {
                             onBlur={handleValidation}
                             type='password'
                         />
-                        {passwordError && <div className='passwordError'>{passwordError}</div>}
+                        {passwordError && <div className={loginStyle.passwordError}>{passwordError}</div>}
                     </div>
-                </div>
-
-                {/*로그인 버튼*/}
-                <button type='submit' className='buttonWrap'>로그인</button>
-
-            </form>
-            <div className='etcContent'>
-                <div className='findWrap'>
+                    <div className={loginStyle.buttonWrap}>
+                        {/*로그인 버튼*/}
+                        <button className={loginStyle.loginBtn} type='submit'>로그인</button>
+                    </div>
+                </form>
+                <div className={loginStyle.grid_item}>
                     <a href='/findid' onClick={handleFindIdPopup}>아이디</a>
                     <label> | </label>
                     <a href='/findPw' onClick={handleFindPwPopup}>비밀번호</a>
                     <label> 찾기</label>
                 </div>
-
-                <div className='registerWrap'>
-                    <button onClick={handleRegister} className='linkbtn'>회원가입</button>
+                <div className={loginStyle.grid_item}>
+                    <button className={loginStyle.linkbtn} onClick={handleRegister}>회원가입</button>
                 </div>
+                {showAlert && <Alert message={alertMessage} onClose={closeAlert} />}
             </div>
-
         </div>
+
     );
 };
 

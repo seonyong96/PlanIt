@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../assets/email.css'
 
 /**
  * 이메일 인증 컴포넌트
@@ -94,7 +95,7 @@ const EmailVerification = ({setEmail}) => {
     return (
         <div>
             {/*E-Mail 입력 필드*/}
-            <div className='emailWrap'>
+            <div className='emailContent'>
                 <label>E-Mail </label>
                 <input
                     className='emailInputWrap'

@@ -1,0 +1,40 @@
+.emailContent {
+    border: 2px solid yellow;
+    align-items: center;
+    margin-left: 60px;
+}
+
+.emailContent label{
+    color: #FFFFFF;
+    margin-right: 40px;
+    min-width: 100px; /*input창 시작점 맞추기*/
+}
+
+.emailContent div {
+    display: flex; /* label과 input을 수평으로 배치 */
+    white-space: wrap;
+    flex-direction: column;
+    align-items: center; /* 세로 정렬 */
+}
+
+.emailContent input{
+    width: 100%;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc; 
+}
+
+.emailContent button {
+    margin-top: 10px;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    color: #FFFFFF;
+    background-color: #121212;
+}

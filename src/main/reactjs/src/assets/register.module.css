@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+.register_page body, .register_page html {
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.register_page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2f353b, #161b22);
+    z-index: -1;
+}
+
+.container{
+    position: absolute; /* 절대 위치 설정 */
+    top: 50%; /* 화면의 수직 50% 위치 */
+    left: 50%; /* 화면의 수평 50% 위치 */
+    height: 700px;
+    transform: translate(-50%,-50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-family:'Open Sans',sans-serif;
+    background: linear-gradient(135deg, #2f353b, #161b22); /*임시*/
+}
+
+.titleWrap {
+    border: 2px solid red;
+    font-size: 30px;
+    font-weight:600;
+    text-align: center;
+    margin-top: 30px;
+    color:#FFFFFF
+}
+
+.noticeLabel{
+    border: 2px solid red;
+    color: #FF6347;
+    font-size: 13px;
+}
+
+.contentWrap {
+    border: 2px solid yellow;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20px;
+    width: 60%;
+}
+
+.contentWrap label{
+    color: #FFFFFF;
+    margin-right: 40px;
+    white-space: nowrap;
+    min-width: 100px; /*input창 시작점 맞추기*/
+}
+
+.contentWrap div {
+    display: flex; /* label과 input을 수평으로 배치 */
+    align-items: center; /* 세로 정렬 */
+}
+
+.contentWrap input{
+    width: 100%;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc; 
+}

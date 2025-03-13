@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+/* 전역으로 쓰이지 않도록 클래스명의 html, body를 구체적으로 써줘야한다. */
+.background_page html , .background_page body{
+    height: 100%;  /* 전체 높이 100% */
+    margin: 0;
+    padding: 0;
+}
+
+.background_page {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2f353b, #161b22);
+    overflow: visible;
+    z-index: -1;  /* 뒤로 보내서 다른 콘텐츠가 앞에 올 수 있게 */
+}
+
+/* 은하수 흐르는 효과 */
+.background_page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;  /* 은하수가 화면을 넘어설 정도로 확장 */
+    height: 100%;
+    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');  /* 은하수 배경 이미지 */
+    background-size: cover;
+    opacity: 0.2;  /* 은하수 배경의 투명도 */
+    pointer-events: none;  /* 은하수 배경이 클릭 이벤트에 영향을 미치지 않도록 */
+    animation: galaxyMove 60s linear infinite;  /* 은하수 흐르는 애니메이션 */
+}
+
+/* 은하수 흐르는 애니메이션 */
+@keyframes galaxyMove {
+    0% {
+        transform: translateX(0);  /* 처음에는 좌측 */
+    }
+    100% {
+        transform: translateX(-100%);  /* 화면을 넘어가며 오른쪽으로 이동 */
+    }
+}
+
+
+.container {
+    /*정가운데 위치*/
+    width:500px;
+    height: 500px;
+    position: absolute; /* 절대 위치 설정 */
+    top: 50%; /* 화면의 수직 50% 위치 */
+    left: 50%; /* 화면의 수평 50% 위치 */
+    transform: translate(-50%, -50%); 
+    display: grid;
+    place-items: space-between center;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;;
+    /* overflow: hidden; */
+    font-family:'Open Sans',sans-serif;
+}
+
+/* 로고 */
+.grid_item:nth-child(1) {
+    grid-column: 1/3;
+    font-size: 60px;
+    font-weight:600;
+    text-align: center;
+    margin-top: 30px;
+    color:#FFFFFF
+
+}
+
+.grid_item:nth-child(2) {
+    grid-column: 1/3;
+    place-items: space-between center;
+    gap: 10px; /* 간격 추가 */
+}
+
+.grid_item:nth-child(2) .contentWrap{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    grid-column: 1/3;
+    padding: 10px;
+}
+
+.idInputWrap, .pwInputWrap {
+    text-align: center;
+    align-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    border-radius: 8px;
+    width: 99%;
+    height: 50px;
+    margin-top: 20px;
+    background-color: #F4F6F9;
+    color:#121212;
+    border-color:  #161b22;
+}
+
+.idError ,.passwordError{
+    text-align: center;
+    align-content: center;
+    font-size: 13px;
+    color:  #FF6347
+}
+
+.grid_item:nth-child(2) .buttonWrap{
+    height: 30%;
+    width: 100%;
+    
+}
+
+.grid_item:nth-child(2) .buttonWrap .loginBtn{
+    background-color: #161b22;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 8px;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    margin-left: 2px;
+    cursor: pointer;
+    
+}
+
+.grid_item:nth-child(3) {
+    grid-row-start: 3;
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 20px;
+}
+
+.grid_item:nth-child(3) a:visited, a:active {
+    color: inherit; /* 부모 요소의 색상 그대로 유지 */
+    text-decoration: none; /* 밑줄 제거 (필요시) */
+}
+
+.grid_item:nth-child(4) {
+    grid-row-start: 3;
+}
+
+.grid_item:nth-child(4) .linkbtn{
+    color: black;
+    color: #FFFFFF;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+}
+

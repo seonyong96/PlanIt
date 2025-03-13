@@ -2,8 +2,11 @@ import React, { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import EmailVerification from '../components/EmailVerification';
-import '../assets/button.css'
-import { initialState,reducer } from '../reducers/RegisterReducers';
+import '../assets/button.css';
+import registerStyle from '../assets/register.module.css';
+import { initialState, reducer } from '../reducers/RegisterReducers';
+import Alert from '../components/Alert';
+import useAlert from '../hooks/useAlert';
 
 const Register = () => {
 
@@ -48,6 +51,9 @@ const Register = () => {
 
     const navigate = useNavigate();
 
+     // useAlert 커스텀 훅 사용해서 custom alert
+     const { showAlert, showAlertMessage, alertMessage, closeAlert } = useAlert();
+
     /** 
      * API Fuction
      *  */
@@ -84,8 +90,8 @@ const Register = () => {
                     alert(err.response.data.message);
 
                 })
-        }else {
-            alert('모든 입력란은 필수입니다.');
+        } else {
+            showAlertMessage('모든 입력란은 필수입니다.');
         }
     }
 
@@ -96,18 +102,21 @@ const Register = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleOnSubmit}>
-                <div className='registerContentWrap'>
-                    <div>
-                        <label style={{ color: "red" }}> * 모든 입력란은 필수입니다. </label>
-                    </div>
+        <div className={registerStyle.register_page}>
+            <div className={registerStyle.container}>
+                <div className={registerStyle.titleWrap}>
+                    회원가입
+                </div>
+                <div className={registerStyle.noticeLabel}>
+                    <label> * 모든 입력란은 필수입니다. </label>
+                </div>
+                <form className={registerStyle.contentWrap} onSubmit={handleOnSubmit}>
                     {/*아이디 입력 필드*/}
-                    <div className='idRegisterWrap'>
-                        <label>아이디 </label>
+                    <div className={registerStyle.idContent}>
+                        <label>아이디</label>
                         <input
-                            className='idRegisterWrap'
-                            id='idRegiste'
+                            className={registerStyle.idInputWrap}
+                            id='idRegister'
                             name='userId'
                             value={state.userId}    /** state에서 userId 값을 가져옴 */
                             type='text'
@@ -118,10 +127,10 @@ const Register = () => {
                     </div>
 
                     {/*비밀번호 입력 필드*/}
-                    <div className='pwRegisterWrap'>
+                    <div className={registerStyle.pwContent}>
                         <label>비밀번호 </label>
                         <input
-                            className='pwRegisterWrap'
+                            className={registerStyle.pwInputWrap}
                             id='pwRegister'
                             name="password"
                             value={state.password}
@@ -130,15 +139,15 @@ const Register = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
-                        {state.passwordError && <div className="error">{state.passwordError}</div>}
+                        {state.passwordError && <div className={registerStyle.error}>{state.passwordError}</div>}
                     </div>
 
 
                     {/*이름 입력 필드*/}
-                    <div className='nameWrap'>
+                    <div className={registerStyle.nameContent}>
                         <label>이름 </label>
                         <input
-                            className='nameInputWrap'
+                            className={registerStyle.nameInputWrap}
                             id='userName'
                             autocomplete="off"
                             name='userName'
@@ -147,15 +156,15 @@ const Register = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
-                        {state.userNameError && <div className="error">{state.userNameError}</div>}
+                        {state.userNameError && <div className={registerStyle.error}>{state.userNameError}</div>}
                     </div>
 
 
                     {/*전화번호 입력 필드*/}
-                    <div className='phoneWrap'>
+                    <div className={registerStyle.phoneContent}>
                         <label>전화번호 </label>
                         <input
-                            className='phoneInputWrap'
+                            className={registerStyle.phoneInputWrap}
                             id='phone'
                             autocomplete="off"
                             name='phone'
@@ -164,14 +173,14 @@ const Register = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
-                        {state.phoneError && <div className="error">{state.phoneError}</div>}
+                        {state.phoneError && <div className={registerStyle.error}>{state.phoneError}</div>}
                     </div>
 
                     {/*생년월일 입력 필드*/}
-                    <div className='birthWrap'>
+                    <div className={registerStyle.birthContent}>
                         <label>생년월일(6자) </label>
                         <input
-                            className='birthInputWrap'
+                            className={registerStyle.birthInputWrap}
                             id='birth'
                             autocomplete="off"
                             name='birth'
@@ -180,20 +189,18 @@ const Register = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
-                        {state.birthError && <div className="error">{state.birthError}</div>}
+                        {state.birthError && <div className={registerStyle.error}>{state.birthError}</div>}
                     </div>
-
                     <EmailVerification setEmail={setEmail} />
-                </div>
-                
+                </form>
                 <div className='btnWrap'>
                     {/*가입 버튼*/}
-                    <button type='submit' className='submitBtn'>가입</button>
+                    <button type='submit' className='submitBtn' onClick={handleOnSubmit}>가입</button>
                     {/*취소 버튼*/}
                     <button type='button' className='cancelBtn' onClick={handleCancel}>취소</button>
                 </div>
-
-            </form>
+            </div>
+            {showAlert && <Alert message={alertMessage} onClose={closeAlert}/>}
         </div>
     );
 }

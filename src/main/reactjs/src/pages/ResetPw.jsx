@@ -71,12 +71,14 @@ const ResetPw = () => {
 
         const reqData = {
             "userId": result.userId,
-            "name": result.userName,
+            "name": result.name,
             "email": result.email,
             "birth": result.birth,
             "newPw": resetPassword,
-            "NewPwCheck": checkResetPassword
+            "newPwCheck": checkResetPassword
         }
+
+        console.log(Object.values(reqData));
 
         if (Object.values(reqData).every(value => value)) {
 
@@ -88,18 +90,18 @@ const ResetPw = () => {
                         'Accept': 'application/json'
                     }
                 }).then(res => {
-                    console.log(res);
+                    console.log(res.status);
                     alert('이건 비밀번호 변경이야')
-                    if (res.status === '200') {
+                    if (res.status === 200) {
                         alert('비밀번호가 변경되었습니다.');
                         window.close();
                     }
                 }).catch(err => {
                     alert(err.response.data.message);
                 })
-            }else{
-                alert('모든 입력란은 필수입니다.');
-            }
+        } else {
+            alert('모든 입력란은 필수입니다.');
+        }
 
     }
 

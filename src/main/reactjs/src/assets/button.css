@@ -1,13 +1,29 @@
 .btnWrap {
     display: flex;
     justify-content: space-between;
-    gap:5px;
+    flex-direction: row;
+    margin-top: 10px;
+    border: 2px solid red;
+    width: 40%;
 }
 
-.submitBtn ,.cancelBtn {
-    font-size: 20px;
-    color: black;
+.btnWrap button {
+    margin-top: 10px;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
     cursor: pointer;
-    border: 2px solid black;;
-    border-radius: 10px;
+    border-radius: 5px;
+    width: 40%;
+}
+
+.submitBtn {
+    color: #FFFFFF;
+    background-color: #2979FF;
+}
+
+.cancelBtn{
+    color: #FFFFFF;
+    background-color: #121212;
+   
 }
