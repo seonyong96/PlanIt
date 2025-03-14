@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import planIt.planIt.common.auth.CustomUserDetails;
 import planIt.planIt.domain.User;
 import planIt.planIt.repository.UserRepository;
 
@@ -25,10 +26,19 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUserId(username)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다. : " + username));
 
-        return new org.springframework.security.core.userdetails.User(
+//        return new org.springframework.security.core.userdetails.User(
+//                user.getUserId(),
+//                user.getPw(),
+//                AuthorityUtils.createAuthorityList(user.getRole())
+//        );
+
+        return new CustomUserDetails(
+                user.getId(),
                 user.getUserId(),
+                username,
                 user.getPw(),
                 AuthorityUtils.createAuthorityList(user.getRole())
         );
+
     }
 }

@@ -3,8 +3,11 @@ package planIt.planIt.common.auth;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import planIt.planIt.service.CustomUserDetailsService;
 
 
 import java.util.Date;
@@ -16,6 +19,19 @@ public class JwtTokenProvider {
 
     @Value("${jwt.secret.key}")
     private String SECRET_KEY;
+
+    private final CustomUserDetailsService customUserDetailsService;
+
+    public JwtTokenProvider(CustomUserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
+
+    public Authentication getAuthentication(String token) {
+
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(this.extractUserId(token));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+
+    }
 
     /**
      * JWT 토큰 생성
