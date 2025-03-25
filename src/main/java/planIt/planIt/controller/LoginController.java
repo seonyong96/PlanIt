@@ -28,7 +28,11 @@ public class LoginController {
     private JwtTokenProvider jwtTokenProvider;
 
 
-
+    /** 로그인
+     *
+     * @param loginDTO
+     * @return String(token)
+     */
     @PostMapping("/login")
     public String signIn (@Valid @RequestBody LoginDTO loginDTO) {
 
@@ -36,6 +40,11 @@ public class LoginController {
 
     }
 
+    /** 로그아웃
+     *
+     * @param response
+     * @return ?
+     */
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
 

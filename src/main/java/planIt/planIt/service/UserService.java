@@ -31,9 +31,11 @@ public class UserService {
     }
 
     /**
-     * 회원가입 서비스
+     * 회원가입
+     *
+     * @param dto
+     * @return User
      */
-    //TODO createTime, modifyTime, role 구현 ( 최초 admin 이 user 를 admin 으로 지정 )
     public User save(UserDTO dto) {
 
         User user = User.builder().userId(dto.getUserId())
@@ -51,7 +53,11 @@ public class UserService {
 
     }
 
-    // id 중복체크
+    /**
+     * ID중복체크
+     *
+     * @param user
+     */
     private void duplicateCheck(User user) {
         userRepository.findByUserId(user.getUserId()).ifPresent(m -> {
             throw new CustomException(ErrorCode.DUPLICATE_ID);
@@ -60,12 +66,25 @@ public class UserService {
 
     }
 
-    // pw BCrypt 인코딩
+    //
+
+    /**
+     * 비밀번호 BCrypt 인코딩
+     *
+     * @param rawPassword
+     * @return String
+     */
     public String encodePassword(String rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
 
-    // 로그인 시 pw 검증
+    /**
+     * 로그인 시 비밀번호 검증
+     *
+     * @param rawPassword
+     * @param encodePassword
+     * @return boolean
+     */
     public boolean matchesPassword(String rawPassword, String encodePassword) {
         return passwordEncoder.matches(rawPassword, encodePassword);
     }
@@ -73,11 +92,11 @@ public class UserService {
     /**
      * 아이디 찾기
      * 이메일 인증 -> 이름 && 생년월일 && 이메일 로 ID찾기
+     *
      * @param dto
      * @return User
      */
-
-    public User userIdSearch(UserIdSearchDTO dto){
+    public User userIdSearch(UserIdSearchDTO dto) {
 
         User user = User.builder()
                 .name(dto.getName())
@@ -96,12 +115,14 @@ public class UserService {
     }
 
 
-    /** PW찾기
-     *  처음 PW찾기 시 입력한 정보 validation 후 해당 User 리턴
+    /**
+     * 비밀번호 찾기
+     * 처음 PW찾기 시 입력한 정보 validation 후 해당 User 리턴
+     *
      * @param dto
      * @return User
      */
-    public User userPwSearch(UserPwSearchDTO dto){
+    public User userPwSearch(UserPwSearchDTO dto) {
 //        User user = User.builder()
 //                .name(dto.getName())
 //                .userId(dto.getUserId())
@@ -121,12 +142,14 @@ public class UserService {
 
     }
 
-    /** 새 비밀번호 저장
+    /**
+     * 새 비밀번호 저장
      * 입력받은 새 비밀번호 DB저장
+     *
      * @param dto
      * @return User
      */
-    public User setNewPw(UserPwSearchDTO dto){
+    public User setNewPw(UserPwSearchDTO dto) {
 
         User user = findUserByPw(dto);
         user.setPw(varifyPw(dto));
@@ -136,6 +159,12 @@ public class UserService {
         return user;
     }
 
+    /**
+     * 비밀번호 찾기
+     *
+     * @param dto
+     * @return User
+     */
     public User findUserByPw(UserPwSearchDTO dto) {
         User user = User.builder()
                 .name(dto.getName())
@@ -146,23 +175,30 @@ public class UserService {
 
         User foundPw = userRepository.findByNameAndBirthAndEmail(user.getName(), user.getBirth(), user.getEmail());
 
-        if (foundPw == null){
+        if (foundPw == null) {
             throw new CustomException(ErrorCode.NOTFOUND_PW);
         }
 
         return foundPw;
     }
 
+    /**
+     * 비밀번호 변경시 검증
+     *
+     * @param dto
+     * @return String
+     */
     public String varifyPw(UserPwSearchDTO dto) {
 
-        if(!dto.getNewPw().equals(dto.getNewPwCheck())){
+        if (!dto.getNewPw().equals(dto.getNewPwCheck())) {
             throw new CustomException(ErrorCode.MISSMATCH_PW);
         }
 
         return dto.getNewPw();
     }
 
-    /** 로그인
+    /**
+     * 로그인
      *
      * @param loginDTO
      * @return String(토큰값)
@@ -175,7 +211,7 @@ public class UserService {
 
         User findUser = userRepository.findByUserIdAndPw(user.getUserId(), user.getPw());
 
-        if(findUser == null) {
+        if (findUser == null) {
             throw new CustomException(ErrorCode.MISSMATCH_LOGIN);
         }
 
@@ -183,7 +219,8 @@ public class UserService {
 
     }
 
-    /** Role 변경
+    /**
+     * Role 변경
      *
      * @param dto
      * @return User
@@ -198,9 +235,9 @@ public class UserService {
 
         Optional<User> optionalUser = userRepository.findByUserId(dto.getUserId());
 
-        User foundUser = optionalUser.orElseThrow( () ->
+        User foundUser = optionalUser.orElseThrow(() ->
                 new CustomException(ErrorCode.NOTFOUND_ID)
-                );
+        );
 
         if (!dto.getNewRole().equals("ROLE_USER") && !dto.getNewRole().equals("ROLE_ADMIN")) {
             throw new IllegalArgumentException("유효하지 않은 역할입니다.");
@@ -216,5 +253,15 @@ public class UserService {
 
         return foundUser;
 
+    }
+
+    public boolean updateUser(UserDTO dto) {
+
+        User user = User.builder()
+
+                .build();
+
+
+        return true;
     }
 }

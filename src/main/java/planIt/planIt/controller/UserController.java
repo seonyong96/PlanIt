@@ -109,6 +109,11 @@ public class UserController {
 
     }
 
+    /** ROLE 변경
+     *
+     * @param dto
+     * @return User
+     */
     @PostMapping("/roleChange")
     public ResponseEntity<User> roleChange(@Valid @RequestBody RoleChangeDTO dto) {
 
