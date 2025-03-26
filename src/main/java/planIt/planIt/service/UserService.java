@@ -39,8 +39,8 @@ public class UserService {
     public User save(UserDTO dto) {
 
         User user = User.builder().userId(dto.getUserId())
-//                .pw(encodePassword(dto.getPw()))
-                .pw(dto.getPw())
+                .pw(encodePassword(dto.getPw()))
+//                .pw(dto.getPw())
                 .name(dto.getName())
                 .phoneNumber(dto.getPhoneNumber())
                 .email(dto.getEmail())
@@ -194,7 +194,7 @@ public class UserService {
             throw new CustomException(ErrorCode.MISSMATCH_PW);
         }
 
-        return dto.getNewPw();
+        return encodePassword(dto.getNewPw());
     }
 
     /**
@@ -204,15 +204,26 @@ public class UserService {
      * @return String(토큰값)
      */
     public String login(LoginDTO loginDTO) {
-        User user = User.builder()
-                .userId(loginDTO.getUserId())
-                .pw(loginDTO.getPw())
-                .build();
+//        User user = User.builder()
+//                .userId(loginDTO.getUserId())
+//                .pw(loginDTO.getPw())
+//                .build();
+//
+//        User findUser = userRepository.findByUserIdAndPw(user.getUserId(), user.getPw());
+//
+//        if (findUser == null) {
+//            throw new CustomException(ErrorCode.MISSMATCH_LOGIN);
+//        }
 
-        User findUser = userRepository.findByUserIdAndPw(user.getUserId(), user.getPw());
+        User findUser = userRepository.findByUserId(loginDTO.getUserId())
+                .orElseThrow( () -> new CustomException(ErrorCode.NOTFOUND_ID));
 
-        if (findUser == null) {
-            throw new CustomException(ErrorCode.MISSMATCH_LOGIN);
+//        if (!passwordEncoder.matches(loginDTO.getPw(), findUser.getPw())) {
+//            throw new CustomException(ErrorCode.NOTFOUND_PW);
+//        }
+
+        if (!matchesPassword(loginDTO.getPw(), findUser.getPw())) {
+            throw new CustomException(ErrorCode.NOTFOUND_PW);
         }
 
         return jwtTokenProvider.generateToken(findUser.getUserId());
@@ -255,13 +266,35 @@ public class UserService {
 
     }
 
-    public boolean updateUser(UserDTO dto) {
+    public boolean myProfile(LoginDTO dto, Long userId) {
 
-        User user = User.builder()
+        User user = userRepository.findById(userId)
+                .orElseThrow( () -> new CustomException(ErrorCode.NOTFOUND_USER));
 
-                .build();
-
+        if (!matchesPassword(dto.getPw(), user.getPw())) {
+            throw new CustomException(ErrorCode.NOTFOUND_PW);
+        }
 
         return true;
+    }
+
+    public User updateUser(UpdateUserDTO dto, Long userId) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOTFOUND_ID));
+
+        if(dto.getEmail() != null) {
+            user.setEmail(dto.getEmail());
+        }
+
+        if(dto.getPw() != null) {
+            user.setPw(encodePassword(dto.getPw()));
+        }
+
+        if(dto.getPhoneNumber() != null) {
+            user.setPhoneNumber(dto.getPhoneNumber());
+        }
+
+        return user;
     }
 }

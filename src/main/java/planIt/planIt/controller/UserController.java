@@ -4,10 +4,12 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import planIt.planIt.common.auth.CustomUserDetails;
 import planIt.planIt.common.auth.JwtTokenProvider;
 import planIt.planIt.controller.dto.*;
 import planIt.planIt.domain.Email;
@@ -121,4 +123,35 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    /** myProfile 진입 시 Pw 확인
+     *
+     * @param dto
+     * @param customUserDetails
+     * @return boolean
+     */
+    @PostMapping("/myProfile")
+    public ResponseEntity<?> myProfile(@RequestBody LoginDTO dto,
+                                       @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+
+        Long userId = customUserDetails.getId();
+        boolean pwCheck = userService.myProfile(dto, userId);
+
+        return new ResponseEntity<>(pwCheck, HttpStatus.OK);
+    }
+
+    /** myProfile 에서 User정보 변경
+     *
+     * @param dto
+     * @param customUserDetails
+     * @return boolean
+     */
+    @PostMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody UpdateUserDTO dto,
+                                        @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+
+        Long userId = customUserDetails.getId();
+        User updateUser = userService.updateUser(dto, userId);
+
+        return new ResponseEntity<>(updateUser, HttpStatus.OK);
+    }
 }
