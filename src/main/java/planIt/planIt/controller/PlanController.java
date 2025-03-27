@@ -1,18 +1,19 @@
 package planIt.planIt.controller;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import planIt.planIt.common.auth.CustomUserDetails;
-import planIt.planIt.controller.dto.PlanDTO;
-import planIt.planIt.controller.dto.UpdatePlanDTO;
+import planIt.planIt.controller.dto.plan.PlanDTO;
+import planIt.planIt.controller.dto.plan.UpdatePlanDTO;
 import planIt.planIt.domain.Plan;
 import planIt.planIt.service.PlanService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -91,5 +92,43 @@ public class PlanController {
 
         return new ResponseEntity<>(deletePlan, HttpStatus.OK);
     }
+
+    /**
+     * 특정 날짜 Plan 조회 (ex : /main/date?date=2025-03-27)
+     *
+     * @param customUserDetails
+     * @return List<Plan>
+     */
+    @GetMapping("/main/date")
+    public ResponseEntity<List<Plan>> getPlanByDate(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+
+        Long userId = customUserDetails.getId();
+        List<Plan> plan = planService.getPlanByDate(userId, date);
+
+        return new ResponseEntity<>(plan, HttpStatus.OK);
+
+    }
+
+    /**
+     * 특정 월 Plan 조회 (ex: /main/month?year=2025&month=3)
+     *
+     * @param customUserDetails
+     * @param year
+     * @param month
+     * @return List<Plan>
+     */
+    @GetMapping("/main/month")
+    public ResponseEntity<List<Plan>> getPlanByMonth(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                                     @RequestParam int year,
+                                                     @RequestParam int month) {
+
+        Long userId = customUserDetails.getId();
+        List<Plan> plan = planService.getPlansByMonth(userId, year, month);
+
+        return new ResponseEntity<>(plan, HttpStatus.OK);
+
+    }
+
 
 }

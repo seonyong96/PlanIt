@@ -7,11 +7,11 @@ import planIt.planIt.common.auth.JwtTokenProvider;
 import planIt.planIt.common.enums.ErrorCode;
 import planIt.planIt.common.enums.UserRole;
 import planIt.planIt.common.exeption.CustomException;
-import planIt.planIt.controller.dto.*;
+import planIt.planIt.controller.dto.etc.LoginDTO;
+import planIt.planIt.controller.dto.user.*;
 import planIt.planIt.domain.User;
 import planIt.planIt.repository.UserRepository;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 // jwt

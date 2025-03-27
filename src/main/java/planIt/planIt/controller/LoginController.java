@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import planIt.planIt.common.auth.JwtTokenProvider;
-import planIt.planIt.controller.dto.LoginDTO;
+import planIt.planIt.controller.dto.etc.LoginDTO;
 import planIt.planIt.service.UserService;
 
 @RestController

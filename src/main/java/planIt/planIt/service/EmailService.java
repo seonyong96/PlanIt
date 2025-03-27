@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import jakarta.mail.MessagingException;
 import org.springframework.stereotype.Service;
-import planIt.planIt.controller.dto.EmailDTO;
+import planIt.planIt.controller.dto.etc.EmailDTO;
 import planIt.planIt.domain.Email;
 import planIt.planIt.repository.EmailRepository;
 

@@ -1,4 +1,4 @@
-package planIt.planIt.controller.dto;
+package planIt.planIt.controller.dto.plan;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Map;
 
 @Data
@@ -26,7 +26,8 @@ public class PlanDTO {
     @Column(name = "description_value")
     private Map<Integer, String> description;
 
-    private String target_date;
+    @NotNull(message = "일정 일자는 필수입니다.")
+    private LocalDate date;
 
     private Long userId;
 

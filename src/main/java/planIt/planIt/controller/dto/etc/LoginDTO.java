@@ -1,4 +1,4 @@
-package planIt.planIt.controller.dto;
+package planIt.planIt.controller.dto.etc;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

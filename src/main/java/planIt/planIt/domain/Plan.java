@@ -3,6 +3,7 @@ package planIt.planIt.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
 
@@ -23,7 +24,8 @@ public class Plan extends TimeStamp {
     @Column(name = "description_value")
     private Map<Integer, String> description;
 
-    private String target_date;
+
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)

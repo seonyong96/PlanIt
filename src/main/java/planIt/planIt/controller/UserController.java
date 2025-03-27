@@ -2,22 +2,20 @@ package planIt.planIt.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import planIt.planIt.common.auth.CustomUserDetails;
 import planIt.planIt.common.auth.JwtTokenProvider;
-import planIt.planIt.controller.dto.*;
+import planIt.planIt.controller.dto.etc.EmailDTO;
+import planIt.planIt.controller.dto.etc.LoginDTO;
+import planIt.planIt.controller.dto.user.*;
 import planIt.planIt.domain.Email;
 import planIt.planIt.domain.User;
 import planIt.planIt.service.EmailService;
 import planIt.planIt.service.UserService;
-
-import java.util.HashMap;
 
 // 큰 범위 단위로 컨트롤러 짜기 ( UserController / PlanController / NotiController --알림 )
 

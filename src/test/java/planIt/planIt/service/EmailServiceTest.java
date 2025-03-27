@@ -1,18 +1,13 @@
 package planIt.planIt.service;
 
-import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;
-import jakarta.validation.constraints.Null;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.javamail.JavaMailSender;
-import planIt.planIt.controller.dto.EmailDTO;
+import planIt.planIt.controller.dto.etc.EmailDTO;
 import planIt.planIt.domain.Email;
 import planIt.planIt.repository.EmailRepository;
 

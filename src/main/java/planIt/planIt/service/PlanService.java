@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import planIt.planIt.common.enums.ErrorCode;
 import planIt.planIt.common.exeption.CustomException;
-import planIt.planIt.controller.dto.PlanDTO;
-import planIt.planIt.controller.dto.UpdatePlanDTO;
+import planIt.planIt.controller.dto.plan.PlanDTO;
+import planIt.planIt.controller.dto.plan.UpdatePlanDTO;
 import planIt.planIt.domain.Plan;
 import planIt.planIt.domain.User;
 import planIt.planIt.repository.PlanRepository;
 import planIt.planIt.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,7 +55,7 @@ public class PlanService {
 
         Plan plan = Plan.builder()
                 .description(dto.getDescription())
-                .target_date(dto.getTarget_date())
+                .date(dto.getDate())
                 .user(user)
                 .build();
 
@@ -100,6 +101,18 @@ public class PlanService {
         planRepository.delete(plan);
 
         return true;
+    }
+
+    public List<Plan> getPlanByDate(Long userId, LocalDate date) {
+
+        return planRepository.findByUserIdAndDate(userId, date);
+
+    }
+
+    public List<Plan> getPlansByMonth(Long userId, int year, int month) {
+
+        return planRepository.findByUserIdAndMonth(userId, year, month);
+
     }
 
 }

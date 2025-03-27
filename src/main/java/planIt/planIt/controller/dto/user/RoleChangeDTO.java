@@ -1,4 +1,4 @@
-package planIt.planIt.controller.dto;
+package planIt.planIt.controller.dto.user;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package planIt.planIt.controller.dto;
+package planIt.planIt.controller.dto.plan;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
