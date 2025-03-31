@@ -42,24 +42,6 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)   // JWT 필터 추가
                 .build();
 
-        //        http
-//                .csrf().disable()
-//                .authorizeHttpRequests()
-//                    .requestMatchers("/**").permitAll() // 누구나 접근 가능
-//                    .requestMatchers("/admin/**").hasRole("ADMIN") // 관리자만 접근 가능
-//                    .anyRequest().authenticated() // 나머지 요청은 인증 필요
-//                .and()
-//                .formLogin()
-//                    .loginPage("/login") // 커스텀 로그인 페이지 경로
-//                    .defaultSuccessUrl("/home") // 로그인 성공 시 이동할 경로
-//                    .permitAll() // 로그인 페이지는 누구나 접근 가능
-//                .and()
-//                .logout()
-//                    .logoutUrl("/logout") // 로그아웃 처리 URL
-//                    .logoutSuccessUrl("/login") // 로그아웃 성공 시 이동할 경로
-//                    .permitAll();
-//
-//        return http.build();
     }
 
     @Bean
