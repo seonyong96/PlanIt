@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import planIt.planIt.domain.Plan;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,7 +22,12 @@ public class AlarmService {
     public void sendAlarm(Long userId, LocalDate date) {
 
         List<Plan> todo = planService.getPlanByDate(userId, date);
-        messagingTemplate.convertAndSend(todo);
+
+        //WebSocket 테스트용
+        System.out.println("*********알람테스트********* userId : " + userId + " date : " + date);
+        System.out.println("*********알람테스트********* todo : " + todo);
+
+        messagingTemplate.convertAndSend("/topic/alarm" + userId, todo != null? todo : Collections.emptyList());
 
     }
 }
