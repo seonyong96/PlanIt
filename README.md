@@ -15,3 +15,15 @@
 # 커밋 히스토리
 ![image](https://github.com/user-attachments/assets/3fb4f06c-e25b-4f10-8975-70a9000bb58e)
 📝 IntelliJ에서 커밋 히스토리를 캡처한 화면입니다. GitHub 초록불 반영 이슈로 직접 캡처를 첨부했습니다.
+
+# API 호출 예시
+- 회원가입
+![image](https://github.com/user-attachments/assets/e63ab61a-1cbf-4722-89de-a2a100c4ab86)
+
+- 로그인
+![image](https://github.com/user-attachments/assets/c47ee155-bdec-4dd5-b489-1703765c3732)
+
+- 할 일 등록
+![image](https://github.com/user-attachments/assets/8371bba7-da9a-4bb9-a183-9b0082db0d16)
+
+
