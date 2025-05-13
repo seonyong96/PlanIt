@@ -27,5 +27,5 @@
 ![image](https://github.com/user-attachments/assets/8371bba7-da9a-4bb9-a183-9b0082db0d16)
 
 📄 전체 API 요청/응답 예시는 아래 문서를 참고해주세요:  
-👉 [API 상세 문서 보기](docs/api-details.md)
+👉 [API 상세 문서 보기](api-details.md)
 
